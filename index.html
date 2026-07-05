@@ -53,14 +53,16 @@
       justify-content: space-between;
     }
     .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
       text-decoration: none;
       color: var(--ink);
+      height: 100%;
     }
-    .nav-logo span { color: var(--accent); }
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+    }
     .nav-links {
       display: flex;
       gap: 2.5rem;
@@ -545,7 +547,9 @@
   <!-- ── NAV ── -->
   <nav aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="#home" class="nav-logo">Janes Auctions <span>LLC</span></a>
+      <a href="#home" class="nav-logo" aria-label="Janes Auctions LLC Home">
+        <img src="janes_auctions_accessibleFAFAF8.png" alt="Janes Auctions LLC" />
+      </a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#auctions">Auctions</a></li>
