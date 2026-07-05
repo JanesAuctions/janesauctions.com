@@ -16,7 +16,7 @@
       --ink:       #1C1C1A;
       --muted:     #6B7280;
       --rule:      #E4E2DC;
-      --accent:    #B8935A;
+      --accent:    #C94000;
       --accent-dk: #9A7A45;
       --max:       1120px;
       --pad:       clamp(1.5rem, 5vw, 4rem);
@@ -338,6 +338,17 @@
       background: var(--bg);
     }
     .hibid-cta-box p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.75rem; }
+    .auction-feature a {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .auction-feature a:hover {
+      opacity: 0.7;
+    }
 
     /* ─── CONSIGN ────────────────────────────────────── */
     .consign-grid {
@@ -584,10 +595,10 @@
             Janes Auctions LLC was founded by Jennifer Janes right here in Lerna, Illinois, with a simple belief: every item has a story, and the right buyer is out there waiting for it.
           </p>
           <p>
-            Jennifer brings a personal, hands-on approach to every sale — from the careful cataloguing of estate items to the thoughtful presentation that gives bidders confidence in what they're buying. Whether it's a farmhouse full of antiques or a carefully curated collection of tools and primitives, she treats each consignment with the same care she'd give her own.
+            Jennifer brings a personal, hands-on approach to every sale — from the careful cataloguing of estate items to the thoughtful presentation that gives bidders confidence in what they're bu[...]
           </p>
           <p>
-            Based in Coles County, Janes Auctions LLC serves sellers and buyers across central Illinois, hosting all auctions on HiBid.com — a trusted online bidding platform with real-time bidding and accessible listings.
+            Based in Coles County, Janes Auctions LLC serves sellers and buyers across central Illinois, hosting all auctions on HiBid.com — a trusted online bidding platform with real-time bidding [...]
           </p>
           <p class="muted" style="font-size:0.9rem; margin-top:1.75rem;">
             Licensed &amp; insured auction company · Lerna, IL 62440
@@ -607,12 +618,13 @@
           <span class="eyebrow">Auctions</span>
           <h2>Live bidding, right now.</h2>
           <p style="color:var(--muted); font-size:0.95rem; line-height:1.75;">
-            All Janes Auctions listings are hosted on HiBid.com — a trusted, easy-to-use platform for online estate and auction bidding. Create a free account, browse current lots, and bid from anywhere.
+            All Janes Auctions listings are hosted on HiBid.com — a trusted, easy-to-use platform for online estate and auction bidding. Create a free account, browse current lots, and bid from anyw[...]
           </p>
           <div style="margin-top:2rem;">
             <div class="auction-feature">
               <div class="auction-feature-label">Bidding Platform</div>
               <div class="auction-feature-title">HiBid.com — Free to register &amp; bid</div>
+              <a href="https://hibid.com/pf/signup?referral=/register&action=generic" target="_blank" rel="noopener">Create your free account →</a>
               <span class="auction-status">Live auctions available</span>
             </div>
             <div class="auction-feature">
@@ -656,7 +668,7 @@
             Whether you're settling an estate, downsizing, or simply clearing space, Janes Auctions LLC handles everything — so you can move forward without the hassle.
           </p>
           <p style="color:var(--muted); font-size:0.95rem; line-height:1.75;">
-            Jennifer works directly with consignors from start to finish: evaluating items, photographing and cataloguing everything, listing on HiBid, running the auction, and handling proceeds. You'll always know what's happening with your items.
+            Jennifer works directly with consignors from start to finish: evaluating items, photographing and cataloguing everything, listing on HiBid, running the auction, and handling proceeds. You'[...]
           </p>
           <a href="#contact" class="btn btn-primary" style="margin-top:2rem;">Get in Touch to Consign</a>
 
@@ -693,7 +705,7 @@
         </div>
 
         <div style="padding-top:0.5rem;">
-          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem;">Why consignors choose Janes Auctions</h3>
+          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:1rem;">Why consignors choose [...]
           <ul class="why-list">
             <li>Personal, one-on-one service — you work directly with Jennifer, not a call center</li>
             <li>Honest evaluations with no pressure and no hidden fees</li>
@@ -732,13 +744,6 @@
               <a href="mailto:janesauctionsllc@gmail.com">janesauctionsllc@gmail.com</a>
             </div>
             <div class="contact-detail">
-              <span class="contact-detail-label">Address</span>
-              <address>
-                10758 E County Road 050N<br />
-                Lerna, IL 62440
-              </address>
-            </div>
-            <div class="contact-detail">
               <span class="contact-detail-label">Bid Online</span>
               <a href="https://hibid.com/company/101690/janes-auctions-llc" target="_blank" rel="noopener">View listings on HiBid.com →</a>
             </div>
@@ -746,7 +751,7 @@
         </div>
 
         <div>
-          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a Message</h3>
+          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a Mess[...]
           <form class="contact-form" action="mailto:janesauctionsllc@gmail.com" method="POST" enctype="text/plain" onsubmit="return handleForm(event)">
             <div class="form-group">
               <label for="name">Your Name</label>
