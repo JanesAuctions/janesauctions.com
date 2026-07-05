@@ -490,7 +490,7 @@
     footer {
       background: var(--ink);
       border-top: 1px solid rgba(250,250,248,0.08);
-      padding: 2rem var(--pad);
+      padding: 2.75rem var(--pad);
     }
     .footer-inner {
       max-width: var(--max);
@@ -502,10 +502,14 @@
       flex-wrap: wrap;
     }
     .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      color: rgba(250,250,248,0.5);
-      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      height: 52px;
+    }
+    .footer-brand img {
+      height: 52px;
+      width: auto;
+      opacity: 0.92;
     }
     .footer-copy {
       font-size: 0.75rem;
@@ -781,14 +785,11 @@
     </div>
   </div>
 
-  <!-- ── FOOTER ── -->
+ <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-inner">
-      <a href="#home" class="nav-logo" aria-label="Janes Auctions LLC Home">
-        <img src="janes_auctions_accessibleFAFAF8.png" alt="Janes Auctions LLC" />
-      </a>
-      <span class="footer-brand">Janes Auctions LLC</span>
-      <span class="footer-copy">© 2025 Janes Auctions LLC · Lerna, IL · Licensed Auction Company</span>
+      <span class="footer-brand"><img src="janes_auctions_accessibleFAFAF8.png" alt="Janes Auctions LLC" /></span>
+      <span class="footer-copy">© 2026 Janes Auctions LLC · Lerna, IL · Licensed Auction Company</span>
       <span class="footer-hibid"><a href="https://hibid.com/company/101690/janes-auctions-llc" target="_blank" rel="noopener">Bid on HiBid.com →</a></span>
     </div>
   </footer>
