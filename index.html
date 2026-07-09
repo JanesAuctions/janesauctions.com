@@ -201,7 +201,7 @@
       color: var(--bg);
     }
 
-    /* ��── HERO ───────────────────────────────────────── */
+    /* ─── HERO ───────────────────────────────────────── */
     #home {
       padding-top: calc(64px + clamp(4rem, 10vw, 7rem));
       padding-bottom: clamp(4rem, 10vw, 7rem);
@@ -465,6 +465,19 @@
     .form-group input:focus,
     .form-group textarea:focus { border-color: var(--accent); }
     .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-error {
+      font-size: 0.78rem;
+      color: #E8A87C;
+      min-height: 1em;
+    }
+    .form-error:empty { display: none; }
+    .form-note {
+      font-size: 0.85rem;
+      display: none;
+    }
+    .form-note.show { display: block; }
+    .form-note.success { color: var(--accent); }
+    .form-note.error { color: #E8A87C; }
     .btn-contact {
       display: inline-block;
       padding: 0.85rem 2.25rem;
@@ -484,6 +497,10 @@
     .btn-contact:hover {
       background: var(--accent-dk);
       border-color: var(--accent-dk);
+    }
+    .btn-contact:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     /* ─── FOOTER ─────────────────────────────────────── */
@@ -716,26 +733,31 @@
 
         <div>
           <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a message</h3><p></p>
-          <form class="contact-form" action="mailto:janesauctionsllc@gmail.com" method="POST" enctype="text/plain" onsubmit="return handleForm(event)">
+          <form id="contact-form" class="contact-form" method="POST" action="https://formspree.io/f/xzdlkepv">
             <div class="form-group">
               <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Jane Smith" autocomplete="name" required />
+              <input type="text" id="name" name="name" placeholder="Jane Smith" autocomplete="name" data-fs-field required />
+              <span class="form-error" data-fs-error="name"></span>
             </div>
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+              <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" data-fs-field required />
+              <span class="form-error" data-fs-error="email"></span>
             </div>
             <div class="form-group">
               <label for="phone">Phone (optional)</label>
-              <input type="tel" id="phone" name="phone" placeholder="(217) 555-0000" autocomplete="tel" />
+              <input type="tel" id="phone" name="phone" placeholder="(217) 555-0000" autocomplete="tel" data-fs-field />
+              <span class="form-error" data-fs-error="phone"></span>
             </div>
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="I'm interested in consigning a collection of..." required></textarea>
+              <textarea id="message" name="message" placeholder="I'm interested in consigning a collection of..." data-fs-field required></textarea>
+              <span class="form-error" data-fs-error="message"></span>
             </div>
-            <button type="submit" class="btn-contact">Send Message</button>
+            <button type="submit" class="btn-contact" data-fs-submit-btn>Send Message</button>
           </form>
-          <p id="form-success" style="display:none; color:var(--accent); font-size:0.9rem; margin-top:1rem;">Thanks! Your message has been sent.</p>
+          <p class="form-note success" data-fs-success>Thanks! Your message has been sent — Jennifer will be in touch soon.</p>
+          <p class="form-note error" data-fs-error>Something went wrong sending your message. Please try again, or email us directly at janesauctionsllc@gmail.com.</p>
         </div>
       </div>
     </div>
@@ -766,26 +788,16 @@
       a.addEventListener('click', () => closeNav());
     });
 
-    // Basic form handler — opens mailto as fallback since this is static HTML
-    function handleForm(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const message = document.getElementById('message').value;
-      const subject = encodeURIComponent('Janes Auctions Inquiry from ' + name);
-      const body = encodeURIComponent(
-        'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\n\n' + message
-      );
-      window.location.href = 'mailto:janesauctionsllc@gmail.com?subject=' + subject + '&body=' + body;
-      document.getElementById('form-success').style.display = 'block';
-    }
-
     // Subtle scroll-activated nav shadow
     window.addEventListener('scroll', () => {
       document.querySelector('nav').style.boxShadow =
         window.scrollY > 10 ? '0 1px 12px rgba(28,28,26,0.07)' : 'none';
     });
+
+    // Formspree AJAX init for the contact form
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contact-form', formId: 'xzdlkepv' });
   </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
