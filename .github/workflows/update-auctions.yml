@@ -1,1 +1,41 @@
+name: Update Current Auctions
+
+on:
+  schedule:
+    # Runs daily at 13:00 UTC (~8am Central). Adjust as you like.
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-auctions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python scripts/update_auctions.py
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "auction-bot"
+          git config user.email "auction-bot@users.noreply.github.com"
+          git add auctions.json
+          if git diff --cached --quiet; then
+            echo "No changes to auctions.json"
+          else
+            git commit -m "Update current auctions listing"
+            git push
+          fi
 
