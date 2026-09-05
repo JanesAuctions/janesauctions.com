@@ -5,7 +5,10 @@ Set HIBID_URLS as a comma-separated env var (or the script falls back to a defau
 Optionally set HIBID_VIEW_LINK for the big button. This script is intentionally
 robust: it uses heuristics to locate auction links. Edit the selectors if HiBid markup changes.
 """
-import os, sys, re, datetime
+import os
+import sys
+import re
+import datetime
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
@@ -65,29 +68,29 @@ def build_html(all_auctions, view_link):
     parts.append("<h1>Current Auctions</h1>")
     parts.append(f"<p>Updated: {now}</p>")
 
-    parts.append('<p><a class="btn" href="{0}" target="_blank" rel="noopener">View Current Auctions</a></p>'.format(view_link))
+    parts.append(f'<p><a class="btn" href="{view_link}" target="_blank" rel="noopener">View Current Auctions</a></p>')
 
     if not all_auctions:
         parts.append("<p>No individual auction links could be detected on the HiBid page. Click the button above to view current auctions on HiBid.</p>")
     else:
         parts.append("<ul>")
         for href, title in all_auctions:
-            safe_title = title.replace(\"<\", \"&lt;\").replace(\">\", \"&gt;\")
-            parts.append(f'<li><a href=\"{href}\" target=\"_blank\" rel=\"noopener\">{safe_title}</a></li>')
+            safe_title = title.replace("<", "&lt;").replace(">", "&gt;")
+            parts.append(f'<li><a href="{href}" target="_blank" rel="noopener">{safe_title}</a></li>')
         parts.append("</ul>")
 
     parts.append("<hr><p>Automated update via GitHub Action.</p>")
     parts.append("</body></html>")
-    return \"\\n\".join(parts)
+    return "\n".join(parts)
 
 def main():
-    env_urls = os.getenv(\"HIBID_URLS\", \"\").strip()
+    env_urls = os.getenv("HIBID_URLS", "").strip()
     if env_urls:
-        urls = [u.strip() for u in env_urls.split(\",\") if u.strip()]
+        urls = [u.strip() for u in env_urls.split(",") if u.strip()]
     else:
         urls = [DEFAULT_HIBID]
 
-    view_link = os.getenv(\"HIBID_VIEW_LINK\", \"\").strip() or urls[0]
+    view_link = os.getenv("HIBID_VIEW_LINK", "").strip() or urls[0]
 
     all_auctions = []
     seen = set()
@@ -95,7 +98,7 @@ def main():
         try:
             html = fetch(url)
         except Exception as e:
-            print(f\"Failed to fetch {url}: {e}\", file=sys.stderr)
+            print(f"Failed to fetch {url}: {e}", file=sys.stderr)
             continue
         links = find_auction_links(html, url)
         for href, title in links:
@@ -104,17 +107,17 @@ def main():
                 seen.add(href)
 
     out = build_html(all_auctions, view_link)
-    target = \"current-auctions.html\"
+    target = "current-auctions.html"
     # Only write if content changed to avoid unnecessary commits
     if os.path.exists(target):
-        with open(target, \"r\", encoding=\"utf-8\") as f:
+        with open(target, "r", encoding="utf-8") as f:
             old = f.read()
         if old == out:
-            print(\"No change to current-auctions.html\")
+            print("No change to current-auctions.html")
             return
-    with open(target, \"w\", encoding=\"utf-8\") as f:
+    with open(target, "w", encoding="utf-8") as f:
         f.write(out)
-    print(f\"Wrote {target} with {len(all_auctions)} detected auction(s).\")
+    print(f"Wrote {target} with {len(all_auctions)} detected auction(s).")
 
-if __name__ == \"__main__\":
+if __name__ == "__main__":
     main()
