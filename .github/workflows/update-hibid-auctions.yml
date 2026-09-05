@@ -1,0 +1,41 @@
+name: Update Current Auctions from HiBid
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # every 15 minutes — change as needed
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Build current-auctions.html from HiBid
+        env:
+          HIBID_URLS: ${{ secrets.HIBID_URLS }}   # comma-separated list of company URLs (see notes)
+          HIBID_VIEW_LINK: ${{ secrets.HIBID_VIEW_LINK }} # optional: the link used for the big button (if not provided, first HIBID_URL used)
+        run: |
+          python .github/scripts/build_hibid_current_auctions.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add current-auctions.html
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update current auctions from HiBid: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            git push
+          fi
