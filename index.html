@@ -360,6 +360,32 @@
       opacity: 0.7;
     }
 
+    /* ─── HIBID INFO LIST ────────────────────────────── */
+    .hibid-info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .hibid-info-list li {
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding-left: 1.4rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .hibid-info-list li::before {
+      content: "•";
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
     /* ─── CONSIGN ────────────────────────────────────── */
     .consign-grid {
       display: grid;
@@ -612,7 +638,7 @@
     </p>
     <div class="hero-cta">
       <div class="hero-cta-col">
-        <a href="https://hibid.com/company/150802/janes-auctions"" target="_blank" rel="noopener" class="btn btn-primary">VIEW ALL CURRENT ACTIONS</a> <p></p>
+        <a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener" class="btn btn-primary">VIEW ALL CURRENT ACTIONS</a> <p></p>
         <h3 class="current-auctions-heading">Current Auctions</h3>
         <ul class="current-auctions-list">
           <li><a href="https://hibid.com/catalog/775149/sweet-treats-effingham-il" target="_blank" rel="noopener">Sweet Treats — Effingham, IL Auction</a></li>
@@ -654,24 +680,25 @@
 
   <hr class="divider" />
 
-        <div class="hibid-cta-box">
-          <span class="eyebrow">Bid Online</span>
-          <h2 style="font-size:clamp(1.8rem,3vw,2.5rem); margin-bottom:1.25rem;">Browse all current lots on HiBid</h2>
-          <p>
-            Every auction we run is listed on HiBid.com. You'll find detailed photos, item descriptions, and real-time bid activity.  <a href="https://hibid.com/register">Create an account at Hib[...]
-          </p>
-          <p style="color:var(--muted); font-size:0.9rem;">
-            Have a question about a specific lot? Don't hesitate to reach out directly — Jennifer is happy to provide additional details or photos before you bid.
-          </p>
-          </p>
-          <p style="color:var(--muted); font-size:0.9rem;">
-            <strong>Pickup is arranged at time of sale - see Auction Notices for each auction on Hibid.</strong></p>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem;">
-            <a href="https://hibid.com/company/150802/janes-auctions"" target="_blank" rel="noopener" class="btn btn-primary">Go to HiBid Listings</a>
-            <a href="#contact" class="btn btn-outline">Ask a Question</a>
-          </div>
-        </div>
-      </div>
+  <div class="hibid-cta-box">
+    <span class="eyebrow">Bid Online</span>
+    <h2 style="font-size:clamp(1.8rem,3vw,2.5rem); margin-bottom:1.25rem;">
+      Browse all current lots on HiBid
+    </h2>
+
+    <ul class="hibid-info-list">
+      <li>Every auction we run is listed on HiBid.com — detailed photos, item descriptions, and real-time bid activity.</li>
+      <li>Have a question about a specific lot? Jennifer is happy to provide additional details or photos before you bid.</li>
+      <li>Pickup is arranged at time of sale — see Auction Notices for each auction on HiBid.</li>
+    </ul>
+
+    <p style="margin-top:1rem;">
+      <a href="https://hibid.com/register">Create a free HiBid account to start bidding →</a>
+    </p>
+
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem;">
+      <a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener" class="btn btn-primary">Go to HiBid Listings</a>
+      <a href="#contact" class="btn btn-outline">Ask a Question</a>
     </div>
   </div>
 
@@ -745,13 +772,13 @@
             </div>
             <div class="contact-detail">
               <span class="contact-detail-label">Bid Online</span>
-              <a href="https://hibid.com/company/150802/janes-auctions"" target="_blank" rel="noopener">View listings on HiBid.com →</a>
+              <a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener">View listings on HiBid.com →</a>
             </div>
           </div>
         </div>
 
         <div>
-          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a[...]
+          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a message</h3>
           <form id="contact-form" class="contact-form" method="POST" action="https://formspree.io/f/xzdlkepv">
             <div class="form-group">
               <label for="name">Your Name</label>
