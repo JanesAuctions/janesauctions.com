@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -23,19 +25,32 @@ jobs:
 
       - name: Build current-auctions.html from HiBid
         env:
-          HIBID_URLS: ${{ secrets.HIBID_URLS }}   # comma-separated list of company URLs (see notes)
-          HIBID_VIEW_LINK: ${{ secrets.HIBID_VIEW_LINK }} # optional: the link used for the big button (if not provided, first HIBID_URL used)
+          HIBID_URLS: ${{ secrets.HIBID_URLS }}   # comma-separated list of company URLs
+          HIBID_VIEW_LINK: ${{ secrets.HIBID_VIEW_LINK }} # optional: link for the big button
         run: |
           python .github/scripts/build_hibid_current_auctions.py
 
-      - name: Commit changes
+      - name: Commit and push changes using PAT
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_PUSH_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          TARGET_BRANCH: main   # change if your default branch is not 'main'
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add current-auctions.html
+
+          # Stage the generated file
+          git add current-auctions.html || true
+
+          # If nothing staged, exit
           if git diff --staged --quiet; then
             echo "No changes to commit"
-          else
-            git commit -m "Update current auctions from HiBid: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-            git push
+            exit 0
           fi
+
+          git commit -m "Update current auctions from HiBid: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
+          # Use PAT to authenticate the push
+          git remote set-url origin https://x-access-token:${REPO_TOKEN}@github.com/${REPOSITORY}.git
+          git push origin HEAD:${TARGET_BRANCH}
