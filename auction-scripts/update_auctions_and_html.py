@@ -28,6 +28,12 @@ HEADERS = {
 }
 
 
+def ensure_archived_file_exists():
+    """Ensure archived-auctions.json exists even if empty"""
+    if not ARCHIVED_JSON.exists():
+        ARCHIVED_JSON.write_text(json.dumps([], indent=2) + "\n")
+
+
 def fetch_auctions():
     """Fetch auctions from HiBid"""
     resp = requests.get(HIBID_URL, headers=HEADERS, timeout=30)
@@ -58,6 +64,7 @@ def fetch_auctions():
 
 def load_archived():
     """Load archived auctions from JSON file"""
+    ensure_archived_file_exists()
     if ARCHIVED_JSON.exists():
         return json.loads(ARCHIVED_JSON.read_text())
     return []
@@ -133,6 +140,9 @@ def update_index_html(auctions, archived):
 
 
 def main():
+    # Ensure archived file exists
+    ensure_archived_file_exists()
+    
     try:
         current_auctions = fetch_auctions()
     except Exception as e:
