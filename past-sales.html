@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Sales | Janes Auctions</title>
+  <meta name="description" content="Browse archived Janes Auctions sales and past listings." />
+  <style>
+    :root {
+      --bg: #fafaf8;
+      --ink: #1c1c1a;
+      --muted: #6b7280;
+      --rule: #e4e2dc;
+      --accent: #c94000;
+      --accent-dk: #9a7a45;
+      --max: 1120px;
+      --pad: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: var(--ink); }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6rem) var(--pad);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1.1;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+
+    .intro {
+      max-width: 62ch;
+      color: var(--muted);
+      margin-bottom: 2.25rem;
+      font-size: 1.05rem;
+    }
+
+    .archive-group {
+      margin-top: 2rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+    }
+
+    .archive-year {
+      margin: 0 0 1rem;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+    }
+
+    .archive-month {
+      margin-top: 1.75rem;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .archive-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .archive-list a {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .archive-list a:hover {
+      text-decoration: underline;
+    }
+
+    .empty {
+      padding: 1.5rem 0;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      margin-top: 4rem;
+      padding: 2rem var(--pad);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="brand">Janes Auctions</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#auctions">Current Auctions</a></li>
+        <li><a href="/#consign">Consign</a></li>
+        <li><a href="/past-sales.html">Past Sales</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <span class="eyebrow">Archive</span>
+    <h1>Past Sales</h1>
+    <p class="intro">
+      Browse previous Janes Auctions listings from our historical sales.
+    </p>
+
+    <div id="archive-root"></div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Janes Auctions LLC
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    async function loadArchive() {
+      const root = document.getElementById("archive-root");
+      try {
+        const response = await fetch("/archived-auctions.json");
+        if (!response.ok) throw new Error("Not found");
+
+        const data = await response.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+          root.innerHTML = '<div class="empty">No past sales are available yet.</div>';
+          return;
+        }
+
+        const groups = {};
+
+        data.forEach(item => {
+          const title = (item.title || "Untitled auction").trim();
+          const url = item.url || "#";
+          const rawDate = item.date || item.date_string || "";
+
+          let year = "Uncategorized";
+          let month = "";
+
+          if (rawDate) {
+            const iso = rawDate.match(/^\d{4}-\d{2}-\d{2}$/) ? rawDate : null;
+            if (iso) {
+              const d = new Date(iso + "T00:00:00");
+              const y = d.getFullYear();
+              const m = new Intl.DateTimeFormat("en-US", { month: "long" }).format(d);
+              year = String(y);
+              month = m;
+            } else {
+              const match = rawDate.match(/([A-Za-z]+)\s+\d{1,2},?\s+\d{4}/);
+              if (match) {
+                const dateObj = new Date(rawDate);
+                if (!Number.isNaN(dateObj.getTime())) {
+                  year = String(dateObj.getFullYear());
+                  month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(dateObj);
+                }
+              }
+            }
+          }
+
+          if (!groups[year]) groups[year] = {};
+          if (month) {
+            if (!groups[year][month]) groups[year][month] = [];
+            groups[year][month].push({ title, url });
+          } else {
+            if (!groups[year]["Uncategorized"]) groups[year]["Uncategorized"] = [];
+            groups[year]["Uncategorized"].push({ title, url });
+          }
+        });
+
+        const sortedYears = Object.keys(groups).sort((a, b) => {
+          if (a === "Uncategorized") return 1;
+          if (b === "Uncategorized") return -1;
+          return Number(b) - Number(a);
+        });
+
+        const html = sortedYears.map(year => {
+          const months = Object.keys(groups[year]).sort((a, b) => {
+            if (a === "Uncategorized") return 1;
+            if (b === "Uncategorized") return -1;
+            const monthOrder = [
+              "January","February","March","April","May","June",
+              "July","August","September","October","November","December"
+            ];
+            return monthOrder.indexOf(b) - monthOrder.indexOf(a);
+          });
+
+          const monthBlocks = months.map(month => {
+            const items = (groups[year][month] || []).slice().sort((a, b) => a.title.localeCompare(b.title));
+            const li = items.map(item => `
+              <li><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></li>
+            `).join("");
+
+            return `
+              <div class="archive-group">
+                <h2 class="archive-year">${year}</h2>
+                <div class="archive-month">${month}</div>
+                <ul class="archive-list">${li}</ul>
+              </div>
+            `;
+          }).join("");
+
+          return monthBlocks;
+        }).join("");
+
+        root.innerHTML = html;
+      } catch (error) {
+        root.innerHTML = '<div class="empty">Past sales are not available yet.</div>';
+      }
+    }
+
+    loadArchive();
+  </script>
+</body>
+</html>
