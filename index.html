@@ -440,13 +440,13 @@
       margin-top: 0.05em;
     }
 
-    /* ─── ARCHIVED SALES ─────────────────────────────── */
-    #archived-sales {
+    /* ─── Past SALES ─────────────────────────────── */
+    #past-sales {
       padding: clamp(5rem, 10vw, 8rem) var(--pad);
       max-width: var(--max);
       margin: 0 auto;
     }
-    .archived-sales-list {
+    .past-sales-list {
       list-style: none;
       padding: 0;
       margin: 0;
@@ -454,23 +454,23 @@
       flex-direction: column;
       gap: 0.8rem;
     }
-    .archived-sales-list li {
+    .past-sales-list li {
       color: var(--muted);
       font-size: 0.95rem;
       padding-left: 1.4rem;
       position: relative;
       line-height: 1.5;
     }
-    .archived-sales-list li a {
+    .past-sales-list li a {
       color: var(--accent);
       text-decoration: none;
       transition: opacity 0.2s;
     }
-    .archived-sales-list li a:hover {
+    .past-sales-list li a:hover {
       opacity: 0.7;
       text-decoration: underline;
     }
-    .archived-sales-list li::before {
+    .past-sales-list li::before {
       content: "—";
       color: var(--accent);
       position: absolute;
@@ -651,7 +651,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener">Auctions</a></li>
         <li><a href="#consign">Consign</a></li>
-        <li><a href="#archived-sales">Archived Sales</a></li>
+        <li><a href="#past-sales">Past Sales</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleNav(this)">
@@ -662,7 +662,7 @@
       <a href="#about" onclick="closeNav()">About</a>
       <a href="https://hibid.com/company/150802/janes-auctions" onclick="closeNav()" target="_blank" rel="noopener">Auctions</a>
       <a href="#consign" onclick="closeNav()">Consign</a>
-      <a href="#archived-sales" onclick="closeNav()">Archived Sales</a>
+      <a href="#past-sales" onclick="closeNav()">Past Sales</a>
       <a href="#contact" onclick="closeNav()">Contact</a>
     </div>
   </nav>
@@ -794,14 +794,14 @@
 
   <hr class="divider" />
 
-  <!-- ── ARCHIVED SALES ── -->
-  <section id="archived-sales" aria-label="Archived Sales">
-    <span class="eyebrow">Archived Sales</span>
+  <!-- ── PAST SALES ── -->
+  <section id="past-sales" aria-label="Past Sales">
+    <span class="eyebrow">Past Sales</span>
     <h2>Previous Auctions</h2>
     <p style="color: var(--muted); margin-bottom: 2rem;">
       Links to auctions that are no longer active on HiBid. For current auctions, <a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">browse our HiBid listings</a>.
     </p>
-    <ul class="archived-sales-list" id="archived-list">
+    <ul class="past-sales-list" id="past-list">
       <li><a href="https://hibid.com/catalog/775149/sweet-treats-effingham-il-part-1" target="_blank" rel="noopener">SWEET TREATS EFFINGHAM IL PART 1Online Only Auction</a></li>
     </ul>
   </section>
