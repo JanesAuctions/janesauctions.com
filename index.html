@@ -440,44 +440,6 @@
       margin-top: 0.05em;
     }
 
-    /* ─── Past SALES ─────────────────────────────── */
-    #past-sales {
-      padding: clamp(5rem, 10vw, 8rem) var(--pad);
-      max-width: var(--max);
-      margin: 0 auto;
-    }
-    .past-sales-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-    .past-sales-list li {
-      color: var(--muted);
-      font-size: 0.95rem;
-      padding-left: 1.4rem;
-      position: relative;
-      line-height: 1.5;
-    }
-    .past-sales-list li a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .past-sales-list li a:hover {
-      opacity: 0.7;
-      text-decoration: underline;
-    }
-    .past-sales-list li::before {
-      content: "—";
-      color: var(--accent);
-      position: absolute;
-      left: 0;
-      font-weight: bold;
-    }
-
     /* ─── CONTACT ────────────────────────────────────── */
     #contact { background: var(--ink); color: var(--bg); }
     #contact .section { color: var(--bg); }
@@ -651,7 +613,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener">Auctions</a></li>
         <li><a href="#consign">Consign</a></li>
-        <li><a href="#past-sales">Past Sales</a></li>
+        <li><a href="https://janesauctions.hibid.com/auctions/past" target="_blank" rel="noopener">Past Auctions</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleNav(this)">
@@ -662,7 +624,7 @@
       <a href="#about" onclick="closeNav()">About</a>
       <a href="https://hibid.com/company/150802/janes-auctions" onclick="closeNav()" target="_blank" rel="noopener">Auctions</a>
       <a href="#consign" onclick="closeNav()">Consign</a>
-      <a href="#past-sales" onclick="closeNav()">Past Sales</a>
+      <a href="https://janesauctions.hibid.com/auctions/past" onclick="closeNav()" target="_blank" rel="noopener">Past Auctions</a>
       <a href="#contact" onclick="closeNav()">Contact</a>
     </div>
   </nav>
@@ -794,20 +756,6 @@
 
   <hr class="divider" />
 
-  <!-- ── PAST SALES ── -->
-  <section id="past-sales" aria-label="Past Sales">
-    <span class="eyebrow">Past Sales</span>
-    <h2>Previous Auctions</h2>
-    <p style="color: var(--muted); margin-bottom: 2rem;">
-      Links to auctions that are no longer active on HiBid. For current auctions, <a href="https://hibid.com/company/150802/janes-auctions" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">browse our HiBid listings</a>.
-    </p>
-    <ul class="past-sales-list" id="past-list">
-      <li><a href="https://hibid.com/catalog/775149/sweet-treats-effingham-il-part-1" target="_blank" rel="noopener">SWEET TREATS EFFINGHAM IL PART 1Online Only Auction</a></li>
-    </ul>
-  </section>
-
-  <hr class="divider" />
-
   <!-- ── CONTACT ── -->
   <div id="contact">
     <div class="section">
@@ -834,7 +782,7 @@
         </div>
 
         <div>
-          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a Message</h3>
+          <h3 style="font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(250,250,248,0.4); margin-bottom:1.5rem;">Send a message</h3>
           <form id="contact-form" class="contact-form" method="POST" action="https://formspree.io/f/xzdlkepv">
             <div class="form-group">
               <label for="name">Your Name</label>
@@ -865,7 +813,7 @@
     </div>
   </div>
 
- <!-- ── FOOTER ── -->
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-inner">
       <span class="footer-brand"><img src="JA_Logo_Hammer_Round20260918Cropped.jpg" alt="Janes Auctions LLC" /></span>
